@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GamingBR | Central de Software</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+
+        :root {
+            --primary: #007aff;
+            --primary-glow: rgba(0, 122, 255, 0.3);
+            --bg: #050505;
+            --glass: rgba(28, 28, 30, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text: #ffffff;
+            --text-dim: #a1a1a6;
+            --success: #30d158;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 20% 20%, rgba(0, 122, 255, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 80% 80%, rgba(0, 122, 255, 0.05) 0%, transparent 40%);
+        }
+
+        /* Nav Estilizada */
+        nav {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: calc(100% - 40px);
+            max-width: 800px;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            z-index: 1000;
+            padding: 10px 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.2rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            background: linear-gradient(to right, #fff, var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-tabs { display: flex; gap: 15px; }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            color: var(--text-dim);
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 8px 16px;
+            border-radius: 12px;
+            transition: 0.3s;
+        }
+
+        .tab-btn:hover { background: rgba(255,255,255,0.05); color: #fff; }
+        .tab-btn.active { background: var(--primary); color: #fff; box-shadow: 0 4px 15px var(--primary-glow); }
+
+        /* Container Principal */
+        .container {
+            max-width: 1000px;
+            margin: 120px auto 60px;
+            padding: 0 24px;
+        }
+
+        .tab-content { display: none; animation: slideUp 0.5s ease; }
+        .tab-content.active { display: block; }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* HERO - Aba Download */
+        .hero { text-align: center; padding: 60px 0; }
+        .hero h1 { 
+            font-size: clamp(3rem, 10vw, 5.5rem); 
+            font-weight: 800; 
+            letter-spacing: -3px; 
+            line-height: 0.9;
+            margin-bottom: 30px;
+        }
+        .hero p { font-size: 1.4rem; color: var(--text-dim); max-width: 600px; margin: 0 auto 50px; }
+
+        .btn-download {
+            background: #fff;
+            color: #000;
+            padding: 22px 60px;
+            border-radius: 100px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-block;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .btn-download:hover { transform: scale(1.05); box-shadow: 0 0 40px rgba(255,255,255,0.3); }
+
+        .meta-grid {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 50px;
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+        .meta-item i { color: var(--primary); margin-right: 8px; }
+
+        /* Aba Funcionalidades */
+        .glass-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 30px;
+            padding: 40px;
+            margin-bottom: 30px;
+        }
+
+        .section-title { font-size: 2rem; font-weight: 800; margin-bottom: 40px; letter-spacing: -1px; }
+
+        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 20px; }
+        .feature-item {
+            background: rgba(255,255,255,0.03);
+            padding: 25px;
+            border-radius: 20px;
+            display: flex;
+            gap: 20px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        .feature-item i { color: var(--success); font-size: 1.5rem; }
+        .feature-item h4 { font-size: 1.1rem; margin-bottom: 5px; }
+        .feature-item p { color: var(--text-dim); font-size: 0.9rem; }
+
+        .future-box {
+            background: linear-gradient(135deg, rgba(0, 122, 255, 0.1) 0%, transparent 100%);
+            border-radius: 24px;
+            padding: 30px;
+        }
+
+        /* Aba FAQ */
+        .faq-item {
+            border-bottom: 1px solid var(--border);
+            padding: 25px 0;
+        }
+        .faq-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+        .faq-header h4 { font-size: 1.1rem; font-weight: 600; padding-right: 30px; }
+        .faq-header i { color: var(--text-dim); transition: 0.3s; }
+        .faq-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            color: var(--text-dim);
+            font-size: 1rem;
+            margin-top: 0;
+        }
+        .faq-item.open .faq-body { max-height: 300px; margin-top: 20px; }
+        .faq-item.open .faq-header i { transform: rotate(180deg); color: var(--primary); }
+
+        footer {
+            text-align: center;
+            padding: 80px 0 40px;
+            border-top: 1px solid var(--border);
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+
+        /* Scrollbar Personalizada */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-container">
+            <div class="logo">GamingBR</div>
+            <div class="nav-tabs">
+                <button class="tab-btn active" onclick="switchTab(event, 'download')">Download</button>
+                <button class="tab-btn" onclick="switchTab(event, 'features')">Recursos</button>
+                <button class="tab-btn" onclick="switchTab(event, 'faq')">Suporte</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        
+        <!-- ABA DOWNLOAD -->
+        <section id="download" class="tab-content active">
+            <div class="hero">
+                <h1>Organize tudo.<br>Jogue agora.</h1>
+                <p>O gerenciador de elite para quem busca performance, organização e acesso instantâneo a +40k títulos.</p>
+                <a href="#" class="btn-download">Obter GamingBR Beta</a>
+                <div class="meta-grid">
+                    <div class="meta-item"><i class="fab fa-windows"></i> Windows 10/11</div>
+                    <div class="meta-item"><i class="fas fa-microchip"></i> Baixo Consumo</div>
+                    <div class="meta-item"><i class="fas fa-shield-halved"></i> 100% Verificado</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ABA FUNCIONALIDADES -->
+        <section id="features" class="tab-content">
+            <div class="glass-card">
+                <h2 class="section-title">Checklist GamingBR – Beta</h2>
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <i class="fas fa-check-circle"></i>
+                        <div>
+                            <h4>Login & Autenticação</h4>
+                            <p>E-mail, Discord (check de cargo) e Google. Sessão persistente e logout funcional.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-check-circle"></i>
+                        <div>
+                            <h4>Interface de Elite</h4>
+                            <p>Dark mode, Header dinâmico, Banner de destaque e renderização inteligente (Zero Lag).</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-check-circle"></i>
+                        <div>
+                            <h4>Gestão de Acervo</h4>
+                            <p>+40k jogos, sistema de fontes (DODI/FitGirl) e capas automáticas via IGDB/RAWG.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-check-circle"></i>
+                        <div>
+                            <h4>Comunidade Ativa</h4>
+                            <p>Integração com servidor Discord de +18k membros e área de perfil de usuário.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-card future-box">
+                <h2 class="section-title">Expansões Futuras</h2>
+                <div class="feature-grid">
+                    <div>
+                        <h4 style="margin-bottom: 10px; color: var(--primary);">Comunidade & UGC</h4>
+                        <p style="color: var(--text-dim);">Aba dedicada para postagem de jogos, redes sociais e sugestões com moderação automática.</p>
+                    </div>
+                    <div>
+                        <h4 style="margin-bottom: 10px; color: var(--primary);">Emulação & Mobile</h4>
+                        <p style="color: var(--text-dim);">Suporte nativo a emuladores (RetroArch) e integração inicial para jogos de Android.</p>
+                    </div>
+                    <div>
+                        <h4 style="margin-bottom: 10px; color: var(--primary);">Updates Visuais</h4>
+                        <p style="color: var(--text-dim);">Capas mais robustas, placeholders inteligentes e Changelog visível no site e app.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ABA FAQ -->
+        <section id="faq" class="tab-content">
+            <h2 class="section-title">FAQ – Central de Suporte</h2>
+            <div class="glass-card">
+                <div class="faq-list">
+                    <div class="faq-item">
+                        <div class="faq-header" onclick="toggleFaq(this)">
+                            <h4>1. O que é o GamingBR?</h4>
+                            <i class="fas fa-plus"></i>
+                        </div>
+                        <div class="faq-body">GamingBR é um launcher gratuito para PC que organiza e facilita o acesso a mais de 40.000 jogos de várias fontes. Você pode buscar, ver detalhes, instalar e gerenciar sua biblioteca de forma simples e rápida.</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-header" onclick="toggleFaq(this)">
+                            <h4>2. É realmente 100% gratuito?</h4>
+                            <i class="fas fa-plus"></i>
+                        </div>
+                        <div class="faq-body">Sim, completamente gratuito. Não tem paywall, assinatura, anúncios invasivos nem compras dentro do app. O foco é oferecer uma experiência boa e acessível para todos.</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-header" onclick="toggleFaq(this)">
+                            <h4>3. Como faço para baixar e instalar o GamingBR?</h4>
+                            <i class="fas fa-plus"></i>
+                        </div>
+                        <div class="faq-body">Clique no botão "Obter GamingBR Beta" no topo da página. O arquivo é para Windows. Após baixar, execute o instalador e siga as instruções na tela.</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-header" onclick="toggleFaq(this)">
+                            <h4>4. Preciso criar conta para usar?</h4>
+                            <i class="fas fa-plus"></i>
+                        </div>
+                        <div class="faq-body">Não é obrigatório, mas é recomendado para salvar configurações, ativar fontes personalizadas e ter acesso a recursos como login rápido via Discord ou Google.</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-header" onclick="toggleFaq(this)">
+                            <h4>5. O que são "fontes" no GamingBR?</h4>
+                            <i class="fas fa-plus"></i>
+                        </div>
+                        <div class="faq-body">Fontes são os locais de onde os jogos são indexados. Você pode ativar ou desativar cada uma para ver mais ou menos jogos, mantendo a biblioteca organizada.</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-header" onclick="toggleFaq(this)">
+                            <h4>6. Como adiciono ou removo jogos da minha biblioteca?</h4>
+                            <i class="fas fa-plus"></i>
+                        </div>
+                        <div class="faq-body">Os jogos são carregados automaticamente das fontes ativadas. Para instalar, clique em "Instalar" na tela de detalhes. O download usa torrent com aria2 integrado.</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-header" onclick="toggleFaq(this)">
+                            <h4>7. O launcher é seguro?</h4>
+                            <i class="fas fa-plus"></i>
+                        </div>
+                        <div class="faq-body">Sim. Usamos login seguro via OAuth. O app não coleta dados desnecessários e não executa nada sem sua permissão.</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-header" onclick="toggleFaq(this)">
+                            <h4>8. Por que alguns jogos não têm capa ou screenshots?</h4>
+                            <i class="fas fa-plus"></i>
+                        </div>
+                        <div class="faq-body">Estamos integrando APIs automáticas. Se um jogo ainda não tiver, aparece um placeholder clean. Com o tempo, a cobertura melhora.</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-header" onclick="toggleFaq(this)">
+                            <h4>9. Posso usar emuladores ou jogos mobile no GamingBR?</h4>
+                            <i class="fas fa-plus"></i>
+                        </div>
+                        <div class="faq-body">Ainda não, mas isso está planejado para versões futuras. Começaremos com suporte a emuladores (RetroArch) e depois mobile.</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-header" onclick="toggleFaq(this)">
+                            <h4>10. Como posso ajudar ou reportar problemas?</h4>
+                            <i class="fas fa-plus"></i>
+                        </div>
+                        <div class="faq-body">Entre no nosso Discord. Lá tem canais dedicados para bugs e sugestões. A comunidade já tem mais de 18.000 membros!</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-header" onclick="toggleFaq(this)">
+                            <h4>11. O GamingBR funciona no meu PC?</h4>
+                            <i class="fas fa-plus"></i>
+                        </div>
+                        <div class="faq-body">Requisitos: Windows 10/11 (64-bit), 4 GB de RAM (8 GB recomendado). O app é leve e otimizado.</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-header" onclick="toggleFaq(this)">
+                            <h4>12. Posso contribuir com links ou fontes novas?</h4>
+                            <i class="fas fa-plus"></i>
+                        </div>
+                        <div class="faq-body">Sim! Futuramente teremos uma aba para usuários. Por enquanto, mande no Discord para nossa equipe analisar.</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-header" onclick="toggleFaq(this)">
+                            <h4>13. Tem versão para Mac/Linux ou mobile?</h4>
+                            <i class="fas fa-plus"></i>
+                        </div>
+                        <div class="faq-body">Ainda não. A prioridade atual é estabilizar a versão Windows.</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-header" onclick="toggleFaq(this)">
+                            <h4>14. O que acontece se eu desinstalar o launcher?</h4>
+                            <i class="fas fa-plus"></i>
+                        </div>
+                        <div class="faq-body">Seus jogos instalados ficam no PC normalmente. As configurações são salvas na conta, então não perde nada.</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-header" onclick="toggleFaq(this)">
+                            <h4>15. Janela azul do Windows bloqueando o instalador?</h4>
+                            <i class="fas fa-plus"></i>
+                        </div>
+                        <div class="faq-body">Totalmente normal. Como o app é independente, o Windows alerta. Clique em "Mais informações" e "Executar assim mesmo". É 100% seguro.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <footer>
+        <p>GamingBR &copy; 2026. Feito com paixão pela comunidade.</p>
+        <p style="margin-top: 10px;"><a href="#" style="color: var(--primary); text-decoration: none;">Discord Oficial (+18k membros)</a></p>
+    </footer>
+
+    <script>
+        function switchTab(event, tabId) {
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleFaq(header) {
+            const item = header.parentElement;
+            item.classList.toggle('open');
+            
+            // Troca ícone
+            const icon = header.querySelector('i');
+            if(item.classList.contains('open')) {
+                icon.className = 'fas fa-minus';
+            } else {
+                icon.className = 'fas fa-plus';
+            }
+        }
+    </script>
+</body>
+</html>
