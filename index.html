@@ -17,6 +17,7 @@
             --border: rgba(255, 255, 255, 0.08);
             --text: #ffffff;
             --text-dim: #b0b0b8;
+            --code-bg: #0a0a0f;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; outline: none; }
@@ -277,6 +278,32 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        /* DOCUMENTAÇÃO ESTILO */
+        .docs-container {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 50px;
+            color: var(--text-dim);
+            line-height: 1.8;
+            text-align: left;
+        }
+
+        .docs-container h2 { color: #fff; margin: 40px 0 20px; border-left: 4px solid var(--primary); padding-left: 15px; font-size: 1.8rem; }
+        .docs-container h3 { color: var(--primary); margin: 30px 0 15px; font-family: 'Syncopate', sans-serif; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; }
+        .docs-container ul { list-style: none; margin-bottom: 20px; }
+        .docs-container li { margin-bottom: 8px; position: relative; padding-left: 20px; font-size: 0.95rem; }
+        .docs-container li::before { content: '→'; position: absolute; left: 0; color: var(--primary); font-weight: bold; }
+        .docs-container code { background: var(--code-bg); padding: 2px 8px; border-radius: 4px; color: #fff; font-family: monospace; font-size: 0.9em; border: 1px solid var(--border); }
+        
+        .docs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 30px; }
+        .api-table { width: 100%; border-collapse: collapse; margin-top: 30px; background: var(--code-bg); border-radius: 12px; overflow: hidden; border: 1px solid var(--border); }
+        .api-table th, .api-table td { padding: 18px; text-align: left; border-bottom: 1px solid var(--border); }
+        .api-table th { background: rgba(0, 210, 255, 0.1); color: var(--primary); text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1.5px; font-weight: 800; }
+        .api-table td { font-size: 0.9rem; }
+
+        .docs-footer { margin-top: 50px; padding: 25px; background: rgba(0, 210, 255, 0.05); border-radius: 16px; font-size: 0.85rem; border: 1px solid rgba(0, 210, 255, 0.1); display: flex; align-items: center; gap: 15px; }
+
         /* Footer */
         footer {
             padding: 100px 20px 50px;
@@ -297,6 +324,8 @@
             .nav-links { display: none; }
             .hero h1 { font-size: 3.5rem; letter-spacing: -2px; }
             .container { padding-top: 100px; }
+            .docs-grid { grid-template-columns: 1fr; }
+            .docs-container { padding: 25px; }
         }
 
     </style>
@@ -311,6 +340,7 @@
             <button class="nav-link active" onclick="switchTab(event, 'home')">Início</button>
             <button class="nav-link" onclick="switchTab(event, 'features')">Checklist</button>
             <button class="nav-link" onclick="switchTab(event, 'faq')">FAQ</button>
+            <button class="nav-link" onclick="switchTab(event, 'docs')">Documentação</button>
         </div>
         <a href="https://discord.gg/cNF9FCBzfh" class="btn btn-secondary" style="padding: 10px 20px; font-size: 0.8rem;">
             <i class="fab fa-discord"></i> Discord
@@ -365,29 +395,6 @@
                     <p>Ative ou desative fontes como DODI e FitGirl. Você escolhe o que aparece na sua vitrine.</p>
                 </div>
             </div>
-
-            <div class="section-header" style="margin-top: 80px;">
-                <h2>No Radar (Próximos Updates)</h2>
-                <p>O que nossa equipe de desenvolvimento está cozinhando.</p>
-            </div>
-
-            <div class="feature-grid">
-                <div class="card" style="border-style: dashed; opacity: 0.8;">
-                    <i class="fas fa-users"></i>
-                    <h3>Área Social UGC</h3>
-                    <p>Postagem de jogos, compartilhamento de links e interação direta entre os membros.</p>
-                </div>
-                <div class="card" style="border-style: dashed; opacity: 0.8;">
-                    <i class="fas fa-gamepad"></i>
-                    <h3>Emulação Master</h3>
-                    <p>Suporte nativo ao RetroArch e expansão inicial para o ecossistema Android.</p>
-                </div>
-                <div class="card" style="border-style: dashed; opacity: 0.8;">
-                    <i class="fas fa-history"></i>
-                    <h3>Auto-Changelog</h3>
-                    <p>Histórico de atualizações em tempo real direto no dashboard do seu launcher.</p>
-                </div>
-            </div>
         </section>
 
         <!-- FAQ -->
@@ -414,49 +421,122 @@
                     <div class="faq-question">4. Preciso criar conta para usar? <i class="fas fa-plus"></i></div>
                     <div class="faq-answer">Não é obrigatório, mas recomendado para salvar seu progresso, configurações de fontes e interagir com a comunidade através do Discord.</div>
                 </div>
-                <div class="faq-item">
-                    <div class="faq-question">5. O que são "fontes" no GamingBR? <i class="fas fa-plus"></i></div>
-                    <div class="faq-answer">Fontes são os provedores de onde os metadados e links dos jogos são extraídos. Você tem controle total para ligar ou desligar cada uma delas no menu de configurações.</div>
+            </div>
+        </section>
+
+        <!-- DOCUMENTAÇÃO OFICIAL -->
+        <section id="docs" class="tab-content">
+            <div class="section-header">
+                <h2>📚 Documentação Técnica - GAMING BR</h2>
+                <p>Dossiê completo da arquitetura e funcionamento do ecossistema.</p>
+            </div>
+
+            <div class="docs-container">
+                <h3>📋 Índice de Arquivos e Funções</h3>
+                
+                <div class="docs-grid">
+                    <div>
+                        <h2>🐍 Python (Backend)</h2>
+                        <h3>main.py - Servidor Principal</h3>
+                        <ul>
+                            <li><code>index()</code> - Renderiza a página inicial protegida</li>
+                            <li><code>serve_nav()</code> - Serve o arquivo de navegação</li>
+                            <li><code>serve_constants()</code> - Serve o arquivo de constantes JavaScript</li>
+                            <li><code>serve_ui_utils()</code> - Serve utilitários de UI</li>
+                            <li><code>serve_script()</code> - Serve o script de conquistas</li>
+                            <li><code>serve_library()</code> - Serve o script da biblioteca</li>
+                            <li><code>serve_main()</code> - Serve o script principal</li>
+                            <li><code>serve_games_json()</code> - Serve o arquivo JSON de jogos</li>
+                            <li><code>launch_app_window()</code> - Abre o navegador em modo aplicativo</li>
+                        </ul>
+
+                        <h3>config.py - Configurações e Setup</h3>
+                        <ul>
+                            <li><code>load_users()</code> - Carrega usuários do arquivo JSON</li>
+                            <li><code>save_users(users)</code> - Salva usuários no arquivo JSON</li>
+                            <li><code>get_resource_path()</code> - Obtém caminho de recursos empacotados</li>
+                            <li><code>setup_environment()</code> - Configura diretórios e arquivos</li>
+                            <li><code>render_protected_file()</code> - Renderiza templates protegidos em base64</li>
+                        </ul>
+
+                        <h3>auth.py - Autenticação</h3>
+                        <ul>
+                            <li><code>discord_login()</code> - Redireciona para OAuth do Discord</li>
+                            <li><code>discord_callback()</code> - Valida servidor, cargos e hierarquia</li>
+                            <li><code>google_login()</code> - Login via Google OAuth</li>
+                            <li><code>api_signup()</code> - Registro de novos usuários</li>
+                            <li><code>check_session()</code> - Verifica estado da sessão</li>
+                        </ul>
+
+                        <h3>steam_games.py - Integração Steam</h3>
+                        <ul>
+                            <li><code>limpeza_brutal(nome)</code> - Normalização agressiva de nomes</li>
+                            <li><code>get_appid_from_steam()</code> - Busca AppID via API Steam Store</li>
+                            <li><code>organizar_arquivos()</code> - Extrai manifests e plugins .lua</li>
+                            <li><code>api_steam_add()</code> - Organiza arquivos KernelOS para Steam</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h2>🟨 JavaScript (Frontend)</h2>
+                        <h3>main.js - Lógica Principal</h3>
+                        <ul>
+                            <li><code>cleanTitleBrutal(title)</code> - Remove tags e versões</li>
+                            <li><code>loadGames()</code> - Carrega jogos de todas as fontes habilitadas</li>
+                            <li><code>renderGames(append)</code> - Renderiza grid com Infinite Scroll</li>
+                            <li><code>openGameDetails(title)</code> - Abre modal de detalhes</li>
+                        </ul>
+
+                        <h3>achievements.js - Sistema de Conquistas</h3>
+                        <ul>
+                            <li><code>unlockAchievement(id)</code> - Desbloqueia conquista (requer login)</li>
+                            <li><code>renderAchievements()</code> - Renderiza grid de medalhas</li>
+                        </ul>
+
+                        <h3>library.js - Biblioteca e Favoritos</h3>
+                        <ul>
+                            <li><code>getLibrary() / getFavorites()</code> - Acesso ao LocalStorage</li>
+                            <li><code>addToLibrary(game)</code> - Adiciona jogo e checa conquistas</li>
+                            <li><code>toggleFavorite(title)</code> - Favorita com persistência</li>
+                        </ul>
+
+                        <h3>ui-utils.js - Utilitários de Interface</h3>
+                        <ul>
+                            <li><code>showNotification()</code> - Toast notifications (success/error)</li>
+                            <li><code>forceRefreshGames()</code> - Limpa cache e recarrega dados</li>
+                            <li><code>showPage(pageId)</code> - Sistema SPA de troca de telas</li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="faq-item">
-                    <div class="faq-question">6. Como funciona a instalação dos jogos? <i class="fas fa-plus"></i></div>
-                    <div class="faq-answer">O GamingBR utiliza o motor aria2 para gerenciar downloads via torrent e links diretos, garantindo a velocidade máxima da sua internet.</div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">7. O launcher é seguro? <i class="fas fa-plus"></i></div>
-                    <div class="faq-answer">Sim! Utilizamos protocolos de segurança modernos para autenticação e o código é focado em transparência. Milhares de usuários já validaram nossa ferramenta.</div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">8. Por que alguns jogos não têm capa? <i class="fas fa-plus"></i></div>
-                    <div class="faq-answer">Estamos refinando nossa integração com a API IGDB. Se o jogo for muito obscuro, o sistema gera um card elegante automaticamente até que a capa seja encontrada.</div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">9. Vai ter suporte para Emuladores? <i class="fas fa-plus"></i></div>
-                    <div class="faq-answer">Sim, está no nosso roadmap. O suporte ao RetroArch está em desenvolvimento avançado.</div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">10. Como reportar um erro? <i class="fas fa-plus"></i></div>
-                    <div class="faq-answer">Nosso Discord é o hub principal de suporte. Entre lá, vá no canal de bugs e anexe um print. Nossa equipe responde rápido!</div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">11. Requisitos para rodar o app? <i class="fas fa-plus"></i></div>
-                    <div class="faq-answer">Qualquer PC com Windows 10/11 64-bit e pelo menos 4GB de RAM roda o launcher tranquilamente.</div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">12. Posso sugerir novos jogos? <i class="fas fa-plus"></i></div>
-                    <div class="faq-answer">Com certeza! Temos um canal de sugestões no Discord onde a comunidade vota no que deve ser priorizado.</div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">13. Tem versão mobile? <i class="fas fa-plus"></i></div>
-                    <div class="faq-answer">Ainda não, mas o suporte a jogos Android e uma interface mobile estão nos planos de longo prazo.</div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">14. O app salva na nuvem? <i class="fas fa-plus"></i></div>
-                    <div class="faq-answer">Suas configurações de biblioteca e perfil são sincronizadas na nossa database via Firebase.</div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">15. O Windows acusou vírus, e agora? <i class="fas fa-plus"></i></div>
-                    <div class="faq-answer">Fica tranquilo, é o "Falso Positivo" do Windows SmartScreen por sermos desenvolvedores independentes. Clique em "Mais Informações" > "Executar assim mesmo".</div>
+
+                <h2>🚀 Endpoints da API</h2>
+                <table class="api-table">
+                    <thead>
+                        <tr>
+                            <th>Método</th>
+                            <th>Rota</th>
+                            <th>Descrição</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>GET</td><td>/</td><td>Página inicial protegida</td></tr>
+                        <tr><td>POST</td><td>/api/login</td><td>Autenticação tradicional por email</td></tr>
+                        <tr><td>GET</td><td>/api/discord-login</td><td>Inicia o fluxo OAuth 2.0 Discord</td></tr>
+                        <tr><td>POST</td><td>/api/steam/add</td><td>Adiciona jogo e organiza arquivos Steam</td></tr>
+                        <tr><td>GET</td><td>/api/stream/home</td><td>Busca lançamentos de streaming de mídia</td></tr>
+                        <tr><td>POST</td><td>/api/signup</td><td>Cadastro de novos usuários no sistema</td></tr>
+                    </tbody>
+                </table>
+
+                <h2>🎯 Fluxo de Dados (Data Flow)</h2>
+                <p>1. <strong>Config:</strong> <code>settings.html</code> define fontes habilitadas → 2. <strong>Load:</strong> <code>main.js: loadGames()</code> iitera fontes e busca JSONs → 3. <strong>Sanitize:</strong> <code>cleanTitleBrutal()</code> limpa nomes → 4. <strong>Enrich:</strong> Busca AppID Steam via Proxy → 5. <strong>UI:</strong> <code>renderGames()</code> monta a vitrine.</p>
+
+                <div class="docs-footer">
+                    <i class="fas fa-terminal" style="color: var(--primary); font-size: 1.5rem;"></i>
+                    <div>
+                        <strong>Observação Importante:</strong> Gerado automaticamente pela documentação técnica GAMING BR. <br>
+                        <span style="opacity: 0.6;">Versão do Sistema: 2026.02 | Status: Operacional</span>
+                    </div>
                 </div>
             </div>
         </section>
@@ -500,13 +580,7 @@
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
-        
-        // Objeto para rastrear o mouse
-        const mouse = {
-            x: null,
-            y: null,
-            radius: 150 // Raio de interação
-        };
+        const mouse = { x: null, y: null, radius: 150 };
 
         window.addEventListener('mousemove', (event) => {
             mouse.x = event.x;
@@ -526,32 +600,21 @@
                 this.speedX = Math.random() * 0.5 - 0.25;
                 this.speedY = Math.random() * 0.5 - 0.25;
                 this.alpha = Math.random() * 0.5;
-                this.baseX = this.x;
-                this.baseY = this.y;
                 this.density = (Math.random() * 30) + 1;
             }
             update() {
-                // Movimento base
                 this.x += this.speedX;
                 this.y += this.speedY;
 
-                // Interação com o mouse (repulsão)
                 let dx = mouse.x - this.x;
                 let dy = mouse.y - this.y;
                 let distance = Math.sqrt(dx * dx + dy * dy);
-                let forceDirectionX = dx / distance;
-                let forceDirectionY = dy / distance;
-                let maxDistance = mouse.radius;
-                let force = (maxDistance - distance) / maxDistance;
-                let directionX = forceDirectionX * force * this.density;
-                let directionY = forceDirectionY * force * this.density;
-
                 if (distance < mouse.radius) {
-                    this.x -= directionX;
-                    this.y -= directionY;
+                    let force = (mouse.radius - distance) / mouse.radius;
+                    this.x -= (dx / distance) * force * this.density;
+                    this.y -= (dy / distance) * force * this.density;
                 }
 
-                // Bordas
                 if (this.x > canvas.width) this.x = 0;
                 if (this.x < 0) this.x = canvas.width;
                 if (this.y > canvas.height) this.y = 0;
@@ -567,24 +630,20 @@
 
         function createParticles() {
             particles = [];
-            const numberOfParticles = (canvas.width * canvas.height) / 9000;
+            const numberOfParticles = (canvas.width * canvas.height) / 12000;
             for (let i = 0; i < numberOfParticles; i++) {
                 particles.push(new Particle());
             }
         }
 
-        // Função para conectar partículas próximas
         function connect() {
-            let opacityValue = 1;
             for (let a = 0; a < particles.length; a++) {
                 for (let b = a; b < particles.length; b++) {
                     let dx = particles[a].x - particles[b].x;
                     let dy = particles[a].y - particles[b].y;
                     let distance = Math.sqrt(dx * dx + dy * dy);
-
                     if (distance < 100) {
-                        opacityValue = 1 - (distance/100);
-                        ctx.strokeStyle = `rgba(0, 210, 255, ${opacityValue * 0.2})`;
+                        ctx.strokeStyle = `rgba(0, 210, 255, ${(1 - distance/100) * 0.15})`;
                         ctx.lineWidth = 1;
                         ctx.beginPath();
                         ctx.moveTo(particles[a].x, particles[a].y);
@@ -616,4 +675,3 @@
     </script>
 </body>
 </html>
-
